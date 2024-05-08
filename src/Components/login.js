@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -31,6 +33,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+    const[email,setEmail] = React.useState('')
+    const[password,setPassword] = React.useState('')
+    const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,7 +44,27 @@ export default function Login() {
       password: data.get('password'),
     });
   };
+  const emailChangeHandler = (e) =>{
+    setEmail(e.target.value)  
+  }
 
+  const passwordChangeHandler = (e) =>{
+    setPassword(e.target.value)
+  }
+
+  const SignupHandler = () =>{
+    axios.post('http://localhost:3003/api/login',{email:email,password:password})
+    .then((res)=>{
+        if(res.data.hasOwnProperty('token')){
+            localStorage.setItem('token',res.data.token)
+            localStorage.setItem('email',res.data.user.email)
+            localStorage.setItem('nodes',JSON.stringify(res.data.user.nodes))
+            localStorage.setItem('edges',JSON.stringify(res.data.user.edges))
+            navigate('/home')
+           
+        }
+    }).catch((err)=>{})
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -64,6 +89,8 @@ export default function Login() {
               required
               fullWidth
               id="email"
+              onChange={(e)=>{emailChangeHandler(e)}}
+              value={email}
               label="Email Address"
               name="email"
               autoComplete="email"
@@ -73,6 +100,8 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              value={password}
+              onChange={(e)=>{passwordChangeHandler(e)}}
               name="password"
               label="Password"
               type="password"
@@ -84,6 +113,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={SignupHandler}
             >
               Sign In
             </Button>

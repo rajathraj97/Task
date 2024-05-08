@@ -20,7 +20,7 @@ import Typography from "@mui/material/Typography";
 import Sidebar from "./sidebar";
 import ResizableNodeSelected from "./ResizableNodeSelected";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-
+import axios from 'axios'
 import HourglassBottomOutlinedIcon from "@mui/icons-material/HourglassBottomOutlined";
 
 import DoneOutlineOutlinedIcon from "@mui/icons-material/DoneOutlineOutlined";
@@ -68,10 +68,11 @@ const initialNodes = [
   },
 ];
 
+
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const MainPage = () => {
+const MainPage = (props) => {
   const [open, setOpen] = React.useState(false);
   const [textValue, setTextValue] = React.useState("");
   const [selected, setSelected] = React.useState(null);
@@ -88,7 +89,7 @@ const MainPage = () => {
   const handleText = (event) => {
     setTextValue(event.target.value);
   };
-
+ 
   const renderModal = () => {
     return (
       <div>
@@ -174,7 +175,13 @@ const MainPage = () => {
   const [edit,setEdit] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
-  console.log(edges,"edge value")
+  React.useEffect(()=>{
+    if(localStorage.getItem('nodes') || localStorage.getItem('edges')){
+      setNodes(JSON.parse(localStorage.getItem('nodes')))
+      setEdges(JSON.parse(localStorage.getItem('edges')))
+    }
+  },[])
+
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     []
@@ -257,7 +264,11 @@ if(!edit){
     setNodes((nds) => nds.concat(newNode));
 }
   };
-
+  React.useEffect(()=>{
+    if(!!nodes && !!edges){
+    props.fetchNodes(nodes,edges)
+    }
+  },[nodes,edges])
 
   const handleDoubleClick = (e,val) =>{
     setEdit(true)
