@@ -54,7 +54,7 @@ export default function SignUp() {
   }
 
   const SignupHandler = () =>{
-    axios.post('http://localhost:3003/api/register',{email:email,password:password})
+    axios.post('https://future-blink-task-backend.onrender.com/api/register',{email:email,password:password})
     .then((res)=>{
         if(res.data.hasOwnProperty('userDoc')){
             navigate('/login')
