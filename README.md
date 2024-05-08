@@ -28,7 +28,7 @@ Install the dependencies and devDependencies and start the server.
 ```sh
 cd file
 npm i
-node start
+npm start
 ```
 
 ## Plugins
