@@ -12,6 +12,7 @@ import Sidebar from "./Components/sidebar";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Drawer } from "@mui/material";
 
+
 function App() {
   const [open, setOpen] = React.useState(false);
 
@@ -24,8 +25,9 @@ function App() {
       <Sidebar />
     </Box>
   );
-
+  
   return (
+    localStorage.getItem('token')&&
     <div
       className="App"
       style={{ backgroundColor: "#E2D7D7", width: "100%", height: "100vh" }}
@@ -53,6 +55,7 @@ function App() {
       </Box>
       <MainPage />
     </div>
+  
   );
 }
 
