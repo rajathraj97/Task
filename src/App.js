@@ -43,7 +43,7 @@ function App() {
 console.log(nodes,"nodes in home")
 
   const handleClosewithSave = () =>{
-    axios.post('http://localhost:3003/api/save',{email:localStorage.getItem('email'),nodes,edges})
+    axios.post('https://future-blink-task-backend.onrender.com/api/save',{email:localStorage.getItem('email'),nodes,edges})
     .then((res)=>{
       if(res.data.hasOwnProperty('msg')){
         localStorage.removeItem('token')
