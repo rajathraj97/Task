@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -31,6 +33,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+    const[email,setEmail] = React.useState('')
+    const[password,setPassword] = React.useState('')
+    const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,6 +44,23 @@ export default function SignUp() {
       password: data.get('password'),
     });
   };
+
+  const emailChangeHandler = (e) =>{
+    setEmail(e.target.value)
+  }
+
+  const passwordChangeHandler = (e) =>{
+    setPassword(e.target.value)
+  }
+
+  const SignupHandler = () =>{
+    axios.post('http://localhost:3003/api/register',{email:email,password:password})
+    .then((res)=>{
+        if(res.data.hasOwnProperty('userDoc')){
+            navigate('/login')
+        }
+    }).catch((err)=>{})
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -66,6 +88,8 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  value={email}
+                  onChange={(e)=>{emailChangeHandler(e)}}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -76,6 +100,8 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  value={password}
+                  onChange={(e)=>{passwordChangeHandler(e)}}
                   name="password"
                   label="Password"
                   type="password"
@@ -84,16 +110,13 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
               </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              onClick={SignupHandler}
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
