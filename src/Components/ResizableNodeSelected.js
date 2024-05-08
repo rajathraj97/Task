@@ -28,7 +28,7 @@ const ResizableNodeSelected = ({ data, selected }) => {
               flexWrap: "wrap",
             }}
           >
-            <EmailOutlinedIcon sx={{ color: "#5CFF46" }} />
+            <EmailOutlinedIcon sx={{backgroundColor:"gray" ,color: "#5CFF46",size:"10px" }} />
             <span>Email sent</span>
           </div>
         ) : null}
@@ -40,7 +40,7 @@ const ResizableNodeSelected = ({ data, selected }) => {
               flexWrap: "wrap",
             }}
           >
-            <EmailOutlinedIcon sx={{ color: "red" }} />
+            <EmailOutlinedIcon sx={{backgroundColor:"gray", color: "red" }} />
             <span>Email sent</span>
           </div>
         ) : null}
@@ -53,7 +53,7 @@ const ResizableNodeSelected = ({ data, selected }) => {
               flexWrap: "wrap",
             }}
           >
-              <DoneOutlineOutlinedIcon  sx={{color:"#5CFF46 "}}/>
+              <DoneOutlineOutlinedIcon  sx={{backgroundColor:"gray",color:"#5CFF46 "}}/>
                   
             <span>Done</span>
           </div>
@@ -66,7 +66,7 @@ const ResizableNodeSelected = ({ data, selected }) => {
               flexWrap: "wrap",
             }}
           >
-              <HourglassBottomOutlinedIcon sx={{color:"yellow"}}/>
+              <HourglassBottomOutlinedIcon sx={{backgroundColor:"gray",color:"yellow"}}/>
                   
             <span>Waitlisted</span>
           </div>
@@ -79,7 +79,7 @@ const ResizableNodeSelected = ({ data, selected }) => {
               flexWrap: "wrap",
             }}
           >
-              <PersonOutlineOutlinedIcon sx={{color:"blue"}}/>
+              <PersonOutlineOutlinedIcon sx={{backgroundColor:"gray",color:"blue"}}/>
                   
             <span>Lead</span>
           </div>

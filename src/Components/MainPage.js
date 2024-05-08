@@ -99,7 +99,7 @@ const MainPage = () => {
             open={open}
           >
             <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-              Add New Node
+             {!!edit ? <h3>Edit Node</h3>:<h3>Add New Node</h3>}
             </DialogTitle>
             <IconButton
               aria-label="close"
@@ -167,15 +167,14 @@ const MainPage = () => {
       </div>
     );
   };
-console.log(textValue,selected,"text")
+
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [edit,setEdit] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
-  console.log(initialNodes);
- 
+  console.log(edges,"edge value")
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     []
@@ -216,7 +215,6 @@ console.log(textValue,selected,"text")
         },
         style: {
           background: "#fff",
-          border: "1px solid black",
           borderRadius: 15,
           fontSize: 12,
         },
@@ -230,9 +228,18 @@ console.log(textValue,selected,"text")
     setOpen(!open);
   };
   const createNewNode = () => {
-   
-        
-   
+   if(edit === true){
+    const updated_data = nodes.map((ele)=>{
+        if(ele.id === id){
+        ele.data={...ele.data , label:textValue,icon:selected }
+        }
+        return ele
+    })
+    setId("")
+    setEdit(false)
+    setNodes(updated_data)
+   }
+if(!edit){
     const newNode = {
       id: getId(),
       type: "ResizableNodeSelected",
@@ -241,19 +248,20 @@ console.log(textValue,selected,"text")
       icon: !!selected ? selected : null, },
       style: {
         background: "#fff",
-        border: "1px solid black",
         borderRadius: 15,
         fontSize: 12,
       },
+    
     };
 
     setNodes((nds) => nds.concat(newNode));
+}
   };
-  console.log(nodes, "nodes");
+
+
   const handleDoubleClick = (e,val) =>{
     setEdit(true)
     setId(val.id)
-    console.log(val,"val")
     initialNodes.map((ele)=>{
         if(ele.id === val.id){
             setTextValue(ele?.data?.label)
