@@ -41,7 +41,7 @@ function App() {
               sx={{ mr: 2 }}
             >
              
-                <MenuIcon onClick={toggleDrawer()}><Drawer >{DrawerList}  </Drawer></MenuIcon>
+                <MenuIcon ><Drawer >{DrawerList}  </Drawer></MenuIcon>
             
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

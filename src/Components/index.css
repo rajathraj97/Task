@@ -4,6 +4,15 @@
     flex-grow: 1;
     height: 100%;
   }
+
+  .nodnd{
+    flex-direction: none;
+    display: flex;
+    flex-grow: 0;
+    height: 10%;
+    margin-right: 50% "!important";
+    z-index: 100;
+  }
   
   .dndflow aside {
     border-right: 1px solid #eee;
