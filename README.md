@@ -18,7 +18,7 @@ drag and drop
 -  Login Page
 -Sign Up Page
 - Save tasks while logout
--  Edit Tasks
+-  Edit Tasks -Double click on the box
 
 ## Installation
  requires [Node.js](https://nodejs.org/) v10+ to run.
